@@ -12,7 +12,6 @@ root.render(
   <React.StrictMode>
     <FontStyles />
     <BrowserRouter>
-      <Header />
       <App />
     </BrowserRouter>
   </React.StrictMode>

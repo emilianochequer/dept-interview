@@ -24,6 +24,7 @@ export const LaunchesList = ({
   pagination,
   searchTerm,
   filteredLaunches,
+  setSelectedLaunch,
 }) => {
   return (
     <>
@@ -45,7 +46,8 @@ export const LaunchesList = ({
                   title={launch.mission_name}
                   imgSrc={launch.mission_patch}
                   description={launch.details}
-                  date={new Date(launch.launch_date_unix).toLocaleString(
+                  setSelectedLaunch={setSelectedLaunch}
+                  date={new Date(launch.launch_date_unix * 1000).toLocaleString(
                     "en-US",
                     {
                       month: "long",
@@ -66,7 +68,8 @@ export const LaunchesList = ({
                   title={launch.mission_name}
                   imgSrc={launch.mission_patch}
                   description={launch.details}
-                  date={new Date(launch.launch_date_unix).toLocaleString(
+                  setSelectedLaunch={setSelectedLaunch}
+                  date={new Date(launch.launch_date_unix * 1000).toLocaleString(
                     "en-US",
                     {
                       month: "long",

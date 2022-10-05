@@ -6,10 +6,10 @@ export const AppProvider = ({ children }) => {
 
   useEffect(() => {
     Promise.all(
-      fetch(`https://api.spacexdata.com/v4/rockets`, {
+      fetch(`https://api.spacexdata.com/v3/rockets`, {
         method: "GET",
       }),
-      fetch(`https://api.spacexdata.com/v4/launches`, {
+      fetch(`https://api.spacexdata.com/v3/launches`, {
         method: "GET",
       })
     )

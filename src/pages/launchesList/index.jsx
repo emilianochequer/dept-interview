@@ -36,6 +36,7 @@ export const LaunchesListPage = () => {
     filteredLaunches,
     setFilteredLaunches,
     setPagination,
+    setSelectedLaunch,
   } = useAppContext();
 
   useEffect(() => {
@@ -54,6 +55,7 @@ export const LaunchesListPage = () => {
 
   return (
     <>
+      <Header />
       <ListWrapper>
         <InputSearcher
           setLaunches={setLaunches}
@@ -71,6 +73,7 @@ export const LaunchesListPage = () => {
           setLaunches={setLaunches}
           filteredLaunches={filteredLaunches}
           searchTerm={searchTerm}
+          setSelectedLaunch={setSelectedLaunch}
         />
         <PaginationWrapper>
           <Pagionation pagination={pagination} setPagination={setPagination} />

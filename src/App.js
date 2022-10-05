@@ -3,6 +3,7 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { LaunchesListPage } from "./pages/launchesList";
 import { LaunchesFavoritesPage } from "./pages/launchesFavorites";
+import { LaunchDetailPage } from "./pages/launchDetail";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 
 export const AppContext = createContext(null);
@@ -12,6 +13,7 @@ function App() {
   const [favorites, setFavorites] = useLocalStorage("favorites", []);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredLaunches, setFilteredLaunches] = useState([]);
+  const [selectedLaunch, setSelectedLaunch] = useState(null);
 
   const [pagination, setPagination] = useState({
     limit: 20,
@@ -26,11 +28,11 @@ function App() {
   });
 
   useEffect(() => {
-    const rockets = fetch(`https://api.spacexdata.com/v4/rockets`, {
+    const rockets = fetch(`https://api.spacexdata.com/v3/rockets`, {
       method: "GET",
     }).then((r) => r.json());
 
-    const launches = fetch(`https://api.spacexdata.com/v4/launches`, {
+    const launches = fetch(`https://api.spacexdata.com/v3/launches`, {
       method: "GET",
     }).then((r) => r.json());
 
@@ -47,6 +49,7 @@ function App() {
               mission_patch: [...data[1]].find(
                 (rocket) => rocket.rocket_id === launch.rocket.rocket_id
               ).flickr_images[0],
+              patch: launch.links.mission_patch,
               rocket: {
                 rocket_id: launch.rocket.rocket_id,
                 rocket_name: launch.rocket.rocket_name,
@@ -56,9 +59,24 @@ function App() {
                 cost_per_launch: [...data[1]].find(
                   (rocket) => rocket.rocket_id === launch.rocket.rocket_id
                 ).cost_per_launch,
-                company: [...data[1]].find(
+                first_stage: [...data[1]].find(
                   (rocket) => rocket.rocket_id === launch.rocket.rocket_id
-                ).company,
+                ).first_stage,
+                second_stage: [...data[1]].find(
+                  (rocket) => rocket.rocket_id === launch.rocket.rocket_id
+                ).second_stage,
+                payload_weights: [...data[1]].find(
+                  (rocket) => rocket.rocket_id === launch.rocket.rocket_id
+                ).payload_weights,
+                mass: [...data[1]].find(
+                  (rocket) => rocket.rocket_id === launch.rocket.rocket_id
+                ).mass,
+                diameter: [...data[1]].find(
+                  (rocket) => rocket.rocket_id === launch.rocket.rocket_id
+                ).diameter,
+                height: [...data[1]].find(
+                  (rocket) => rocket.rocket_id === launch.rocket.rocket_id
+                ).height,
               },
             };
           })
@@ -80,6 +98,8 @@ function App() {
     setSearchTerm,
     filteredLaunches,
     setFilteredLaunches,
+    selectedLaunch,
+    setSelectedLaunch,
   };
 
   return (
@@ -88,6 +108,7 @@ function App() {
         <Routes>
           <Route index element={<LaunchesListPage />} />
           <Route path="/favorites" element={<LaunchesFavoritesPage />} />
+          <Route path="/detail" element={<LaunchDetailPage />} />
         </Routes>
       </AppContext.Provider>
     </div>

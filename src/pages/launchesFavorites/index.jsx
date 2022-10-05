@@ -3,6 +3,7 @@ import { useAppContext } from "../../App";
 import styled from "styled-components";
 import { LaunchesList } from "../../components/launchList";
 import { Pagionation } from "../../components/pagination";
+import { Header } from "../../components/header";
 
 const ListWrapper = styled.div`
   background: #121212;
@@ -30,6 +31,7 @@ export const LaunchesFavoritesPage = () => {
     searchTerm,
     filteredLaunches,
     setPagination,
+    setSelectedLaunch,
   } = useAppContext();
 
   useEffect(() => {
@@ -40,19 +42,23 @@ export const LaunchesFavoritesPage = () => {
   }, []);
 
   return (
-    <ListWrapper>
-      <LaunchesList
-        launches={favorites}
-        favorites={favorites}
-        setFavorites={setFavorites}
-        pagination={pagination}
-        setLaunches={setLaunches}
-        filteredLaunches={filteredLaunches}
-        searchTerm={searchTerm}
-      />
-      <PaginationWrapper>
-        <Pagionation pagination={pagination} setPagination={setPagination} />
-      </PaginationWrapper>
-    </ListWrapper>
+    <>
+      <Header />
+      <ListWrapper>
+        <LaunchesList
+          launches={favorites}
+          favorites={favorites}
+          setFavorites={setFavorites}
+          pagination={pagination}
+          setLaunches={setLaunches}
+          filteredLaunches={filteredLaunches}
+          searchTerm={searchTerm}
+          setSelectedLaunch={setSelectedLaunch}
+        />
+        <PaginationWrapper>
+          <Pagionation pagination={pagination} setPagination={setPagination} />
+        </PaginationWrapper>
+      </ListWrapper>
+    </>
   );
 };

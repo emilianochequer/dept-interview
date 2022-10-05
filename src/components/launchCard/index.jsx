@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const CardContainer = styled.div`
   height: 286px;
@@ -21,6 +22,9 @@ const ImagenLaunch = styled.img`
   width: 413px;
   border-radius: 8px;
   min-height: 157px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const TitleLaunch = styled.h1`
@@ -64,6 +68,7 @@ const InfoContainer = styled.div`
   width: 90%;
   height: 128.3px;
   padding: 0 20px;
+  justify-content: space-around;
 `;
 
 const SpanFavorite = styled.span`
@@ -90,10 +95,17 @@ export const LaunchCard = ({
   setFavorites,
   favorites,
   launch,
+  setSelectedLaunch,
 }) => {
+  const navigate = useNavigate();
+
+  const handleSelectClick = () => {
+    setSelectedLaunch(launch);
+    navigate("/detail");
+  };
   return (
     <CardContainer>
-      <ImagenLaunch src={imgSrc} />
+      <ImagenLaunch onClick={handleSelectClick} src={imgSrc} />
       <InfoContainer>
         <TitleLaunch>{title}</TitleLaunch>
         {description && <DescriptionLaunch>{description}</DescriptionLaunch>}
